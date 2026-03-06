@@ -1,8 +1,9 @@
 /**
  * ReactMotion Project Page - Interactive Scripts
+ * Browser support: Chrome, Firefox, Safari, Edge (modern versions)
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   initNavbar();
   initSmoothScroll();
   initVideoCards();
@@ -12,16 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navbar scroll effect
 function initNavbar() {
-  const navbar = document.querySelector('.navbar');
+  var navbar = document.querySelector('.navbar');
   if (!navbar) return;
 
-  const handleScroll = () => {
+  function handleScroll() {
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-  };
+  }
 
   window.addEventListener('scroll', handleScroll);
   handleScroll(); // Initial check
@@ -29,48 +30,68 @@ function initNavbar() {
 
 // Smooth scroll for anchor links
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+  var anchors = document.querySelectorAll('a[href^="#"]');
+  for (var i = 0; i < anchors.length; i++) {
+    anchors[i].addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      var target = document.querySelector(this.getAttribute('href'));
       if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        if ('scrollBehavior' in document.documentElement.style) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          target.scrollIntoView(true);
+        }
       }
     });
-  });
+  }
 }
 
-// Video card interactions - play button overlay
+// Video card interactions - play button overlay & card click
 function initVideoCards() {
-  document.querySelectorAll('.video-card').forEach(card => {
-    const video = card.querySelector('video');
-    const playBtn = card.querySelector('.play-btn');
-    const overlay = card.querySelector('.video-overlay');
+  var cards = document.querySelectorAll('.video-card');
+  for (var i = 0; i < cards.length; i++) {
+    var card = cards[i];
+    var video = card.querySelector('video');
+    var playBtn = card.querySelector('.play-btn');
+    var overlay = card.querySelector('.video-overlay');
 
-    if (!video || !playBtn) return;
+    if (!video || !playBtn) continue;
 
-    // Toggle play on overlay click
-    overlay?.addEventListener('click', (e) => {
-      e.stopPropagation();
+    var playVideo = function() {
       if (video.paused) {
         video.play();
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
+      } else {
+        video.pause();
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
       }
+    };
+
+    // Toggle play on overlay click
+    if (overlay) {
+      overlay.addEventListener('click', function(e) {
+        e.stopPropagation();
+        playVideo();
+      });
+    }
+
+    // Click on video area (when playing) to pause
+    video.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!video.paused) playVideo();
     });
 
     // Show overlay when video pauses
-    video.addEventListener('pause', () => {
+    video.addEventListener('pause', function() {
       if (overlay) {
         overlay.style.opacity = '1';
         overlay.style.pointerEvents = 'auto';
       }
     });
 
-    video.addEventListener('ended', () => {
+    video.addEventListener('ended', function() {
       if (overlay) {
         overlay.style.opacity = '1';
         overlay.style.pointerEvents = 'auto';
@@ -78,7 +99,7 @@ function initVideoCards() {
     });
 
     // Hide overlay when playing
-    video.addEventListener('play', () => {
+    video.addEventListener('play', function() {
       if (overlay) {
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
@@ -86,7 +107,7 @@ function initVideoCards() {
     });
 
     // Handle video load error - show placeholder
-    video.addEventListener('error', () => {
+    video.addEventListener('error', function() {
       if (overlay) {
         overlay.style.opacity = '1';
         overlay.style.background = 'linear-gradient(135deg, rgba(113, 212, 241, 0.15), rgba(242, 196, 113, 0.15))';
@@ -99,39 +120,44 @@ function initVideoCards() {
         `;
       }
     });
-  });
+  }
 }
 
-// Scroll-triggered animations
+// Scroll-triggered animations (with IntersectionObserver fallback)
 function initScrollAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Observe elements for animation
-  const animateElements = document.querySelectorAll(
+  var animateElements = document.querySelectorAll(
     '.video-card, .method-item, .abstract-card, .methodology-figure, .dataset-figure, .pipeline-step, .dataset-stats'
   );
-  animateElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      for (var j = 0; j < entries.length; j++) {
+        var entry = entries[j];
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    for (var i = 0; i < animateElements.length; i++) {
+      var el = animateElements[i];
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    }
+  } else {
+    // Fallback: show all elements immediately
+    for (var k = 0; k < animateElements.length; k++) {
+      animateElements[k].style.opacity = '1';
+      animateElements[k].style.transform = 'none';
+    }
+  }
 }
 
 // Add animation styles dynamically
-const style = document.createElement('style');
+var style = document.createElement('style');
 style.textContent = `
   .animate-in {
     opacity: 1 !important;
@@ -164,16 +190,17 @@ function initMobileNav() {
 
   if (!toggle || !navLinks) return;
 
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener('click', function() {
     navLinks.classList.toggle('active');
     toggle.classList.toggle('active');
   });
 
   // Close menu when clicking a link
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
+  var links = navLinks.querySelectorAll('a');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function() {
       navLinks.classList.remove('active');
       toggle.classList.remove('active');
     });
-  });
+  }
 }

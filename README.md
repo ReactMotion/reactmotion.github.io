@@ -1,6 +1,6 @@
 # ReactMotion Project Page
 
-Academic project page for **ReactMotion: Generating Reactive Listener Motions from Speaker Utterance**.
+Academic project page for **ReactMotion: Generating Reactive Listener Motions from Speaker Utterance** (ACM MM 2025).
 
 ## 🚀 Deploy to GitHub Pages
 
