@@ -19,10 +19,10 @@
       <a href="#" class="nav-logo">ReactMotion</a>
       <ul class="nav-links">
         <li><a href="#demo">Demo</a></li>
+        <li><a href="#abstract">Abstract</a></li>
         <li><a href="#dataset">Dataset</a></li>
         <li><a href="#methodology">Methodology</a></li>
         <li><a href="#results">Results</a></li>
-        <li><a href="#abstract">Abstract</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -57,7 +57,7 @@
         <p class="authors-notes"><sup>†</sup> Equal contributions. <sup>*</sup> Corresponding authors.</p>
       </div>
       <div class="hero-actions">
-        <a href="https://github.com/your-repo/ReactMotion" class="btn btn-primary" target="_blank">
+        <a href="https://github.com/awakening-ai/ReactMotion" class="btn btn-primary" target="_blank">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
@@ -75,6 +75,139 @@
     </a>
   </header>
 
+  <!-- Demo Videos Section -->
+  <section id="demo" class="section demo-section">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="title-accent">Demo Videos</span>
+      </h2>
+      <p class="section-desc">ReactMotion generates diverse and appropriate listener motions in response to speaker utterances</p>
+
+      <!-- YouTube Demo -->
+      <div class="youtube-embed">
+        <h3 class="gallery-title">Video Demo</h3>
+        <a class="youtube-thumb-link" href="https://www.youtube.com/watch?v=48jq_G1uU5s" target="_blank" rel="noopener" aria-label="Watch ReactMotion demo on YouTube">
+          <img class="youtube-thumb-img" src="https://img.youtube.com/vi/48jq_G1uU5s/maxresdefault.jpg" alt="ReactMotion Video Demo thumbnail" onerror="this.src='https://img.youtube.com/vi/48jq_G1uU5s/hqdefault.jpg'">
+          <div class="youtube-play-overlay">
+            <div class="youtube-play-btn">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+            </div>
+            <span class="youtube-watch-text">Watch on YouTube</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Interactive Video Gallery -->
+      <div class="video-gallery">
+        <h3 class="gallery-title">Generated Samples</h3>
+
+        <!-- Speaker transcription + audio panel -->
+        <div class="speaker-panel" id="speakerPanel">
+          <div class="speaker-panel-top">
+            <div class="speaker-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+              Speaker
+            </div>
+            <div class="audio-controls">
+              <button class="audio-play-btn" id="audioPlayBtn" title="Play / Pause speaker audio">
+                <svg id="audioPlayIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="audio-progress-wrap">
+                <div class="audio-progress-bar" id="audioProgressBar">
+                  <div class="audio-progress-fill" id="audioProgressFill"></div>
+                </div>
+                <span class="audio-time" id="audioTime">0:00</span>
+              </div>
+              <button class="audio-mute-btn" id="audioMuteBtn" title="Mute / Unmute">
+                <svg id="audioMuteIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
+          <p class="speaker-text" id="speakerText">You look absolutely radiant in this moment, like you just conquered something big.</p>
+          <audio id="speakerAudio" src="assets/video/000917_2_reaction_proud_5.wav"></audio>
+        </div>
+
+        <!-- Reactive listener motion label -->
+        <div class="reactive-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+          Reactive Listener Motion
+        </div>
+
+        <!-- Main large video player -->
+        <div class="main-video-player">
+          <video id="mainVideo" muted loop playsinline>
+            <source src="assets/video/You_look.mp4" type="video/mp4">
+          </video>
+          <div class="main-video-label">
+            <span class="main-video-label-icon">▶</span>
+            <span id="mainVideoLabel">You Look</span>
+          </div>
+          <div class="main-video-controls">
+            <button class="main-play-btn" id="mainPlayBtn" aria-label="Play/Pause">
+              <svg id="mainPlayIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Thumbnail selector strip -->
+        <div class="video-selector" id="videoSelector">
+          <div class="video-thumb active"
+               data-src="assets/video/You_look.mp4"
+               data-label="You Look"
+               data-audio="assets/video/000917_2_reaction_proud_5.wav"
+               data-transcription="You look absolutely radiant in this moment, like you just conquered something big.">
+            <video src="assets/video/You_look.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">You Look</span></div>
+          </div>
+          <div class="video-thumb"
+               data-src="assets/video/confetti.mp4"
+               data-label="Confetti"
+               data-audio="assets/video/000002_4_reaction_surprised_negative_8.wav"
+               data-transcription="That confetti popper really startled me for a second there.">
+            <video src="assets/video/confetti.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">Confetti</span></div>
+          </div>
+          <div class="video-thumb"
+               data-src="assets/video/energy.mp4"
+               data-label="Energy"
+               data-audio="assets/video/000347_1_reaction_excited_3.wav"
+               data-transcription="The energy in here feels electric right now.">
+            <video src="assets/video/energy.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">Energy</span></div>
+          </div>
+          <div class="video-thumb"
+               data-src="assets/video/hey.mp4"
+               data-label="Hey"
+               data-audio="assets/video/000132_2_reaction_calm_0.wav"
+               data-transcription="Hey, I'm right here. You know there's no rush, yeah?">
+            <video src="assets/video/hey.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">Hey</span></div>
+          </div>
+          <div class="video-thumb"
+               data-src="assets/video/jazz1.mp4"
+               data-label="Jazz"
+               data-audio="assets/video/000171_2_reaction_awed_0.wav"
+               data-transcription="Wow, that stance reminds me of a move from that jazz routine you showed me last week!">
+            <video src="assets/video/jazz1.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">Jazz</span></div>
+          </div>
+          <div class="video-thumb"
+               data-src="assets/video/that_other_spot.mp4"
+               data-label="That Other Spot"
+               data-audio="assets/video/000009_2_reaction_aware_9.wav"
+               data-transcription="That other spot was way too packed to talk comfortably. It's awesome we noticed each other from over here, right?">
+            <video src="assets/video/that_other_spot.mp4" muted preload="metadata" playsinline></video>
+            <div class="thumb-overlay"><span class="thumb-label">That Other Spot</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-visualization" style="margin-top:3rem;">
+        <img src="assets/images/visualization-reactmotion.png" alt="ReactMotion visualization">
+      </div>
+    </div>
+  </section>
+
   <!-- Abstract Section -->
   <section id="abstract" class="section abstract-section">
     <div class="container">
@@ -88,95 +221,6 @@
         <p>In this paper, we introduce a new task, <strong>Reactive Listener Motion Generation from Speaker Utterance</strong>, which aims to generate naturalistic listener body motions that appropriately respond to a speaker's utterance. However, modeling such nonverbal listener behaviors remains underexplored and challenging due to the inherently non-deterministic nature of human reactions.</p>
         <p>To facilitate this task, we present <strong>ReactMotionNet</strong>, a large-scale dataset that pairs speaker utterances with multiple candidate listener motions annotated with varying degrees of appropriateness. This dataset design explicitly captures the one-to-many nature of listener behavior and provides supervision beyond a single ground-truth motion. Building on this dataset design, we develop preference-oriented evaluation protocols tailored to evaluate reactive appropriateness, where conventional motion metrics focusing on input–motion alignment ignore.</p>
         <p>We further propose <strong>ReactMotion</strong>, a unified generative framework that jointly models text, audio, emotion, and motion, and is trained with preference-based objectives to encourage both appropriate and diverse listener responses. Extensive experiments show that ReactMotion outperforms retrieval baselines and cascaded LLM-based pipelines, generating more natural, diverse, and appropriate listener motions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Demo Videos Section -->
-  <section id="demo" class="section demo-section">
-    <div class="container">
-      <h2 class="section-title">
-        <span class="title-accent">Demo Videos</span>
-      </h2>
-      <p class="section-desc">ReactMotion generates diverse and appropriate listener motions in response to speaker utterances</p>
-      
-      <div class="demo-visualization">
-        <img src="assets/images/visualization-reactmotion.png" alt="ReactMotion visualization">
-      </div>
-      
-      <!-- Video Grid -->
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/demo1.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay">
-              <button class="play-btn" aria-label="Play">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <h3>Generated Listener Motions to Different Speaker Behaviours</h3>
-            <p>Responses to various speaker utterances</p>
-          </div>
-        </div>
-        
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/demo2.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay">
-              <button class="play-btn" aria-label="Play">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <h3>Multiple Reaction Samples</h3>
-            <p>Different reactions (1, 2, 3) to the same speaker behaviour</p>
-          </div>
-        </div>
-        
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/demo3.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay">
-              <button class="play-btn" aria-label="Play">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <h3>Comparison with State-of-the-Art</h3>
-            <p>ReactMotion vs. retrieval baselines and LLM pipelines</p>
-          </div>
-        </div>
-        
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/demo4.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay">
-              <button class="play-btn" aria-label="Play">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <h3>Diversity & Appropriateness</h3>
-            <p>Natural and diverse listener responses</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -285,30 +329,6 @@
         <p class="stats-note">8:1:1 train/val/test split by speaker utterance (disjoint across splits). #Pairs = labeled speaker–listener pairs; Labels = Gold/Silver/Negative counts.</p>
       </div>
       
-      <!-- Dataset sample videos -->
-      <div class="dataset-samples">
-        <h3>Dataset Samples</h3>
-        <div class="dataset-video-grid">
-          <div class="sample-card">
-            <div class="sample-video">
-              <video controls preload="metadata"><source src="videos/dataset_sample1.mp4" type="video/mp4"></video>
-            </div>
-            <p>Sample 1: Speaker + Listener</p>
-          </div>
-          <div class="sample-card">
-            <div class="sample-video">
-              <video controls preload="metadata"><source src="videos/dataset_sample2.mp4" type="video/mp4"></video>
-            </div>
-            <p>Sample 2: Speaker + Listener</p>
-          </div>
-          <div class="sample-card">
-            <div class="sample-video">
-              <video controls preload="metadata"><source src="videos/dataset_sample3.mp4" type="video/mp4"></video>
-            </div>
-            <p>Sample 3: Speaker + Listener</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
